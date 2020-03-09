@@ -13,7 +13,7 @@ public class DisplayMessage
 			String atr = "";
 			for (String n : message)
 			{
-				atr += "<html><font color = \"ffffff\" + >" + n + "</font><html>" + '\n';
+				atr += "<html>" + n + "<html>" + '\n';
 			}
 			return JOptionPane.showConfirmDialog(null, atr);
 		} else

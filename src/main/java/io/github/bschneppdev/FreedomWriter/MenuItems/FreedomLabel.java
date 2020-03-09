@@ -15,7 +15,6 @@ public class FreedomLabel extends JLabel
 	@Override
 	public void setText(String newText)
 	{
-		this.setForeground(Color.WHITE);
 		super.setText(newText);
 	}
 }

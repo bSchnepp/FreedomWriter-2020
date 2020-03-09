@@ -44,7 +44,6 @@ import io.github.bschneppdev.FreedomWriter.window.FreedomEditor;
 import io.github.bschneppdev.util.DisplayMessage;
 import io.github.bschneppdev.util.ScreenSizeHandler;
 
-
 /* This is a (far) too massive god class that needs to be refactored badly. */
 public class Main
 {
@@ -87,10 +86,6 @@ public class Main
 
 	public Main()
 	{
-		file.setForeground(Color.WHITE);
-		home.setForeground(Color.WHITE);
-		insert.setForeground(Color.WHITE);
-		view.setForeground(Color.WHITE);
 		jedit = new FreedomEditor().display();
 		status = new FreedomLabel("freedomwriter");
 		/* Slight refactoring, should be OK now. */
@@ -430,7 +425,6 @@ public class Main
 				JFrame jf = new JFrame("Options");
 				JButton jb = new JButton(
 						"Oh you do not want to see what used to be here. It was awfully built, written, and designed. No.");
-				jb.setBackground(Color.WHITE);
 				jf.getContentPane().add(jb, BorderLayout.SOUTH);
 				jf.pack();
 				jf.setVisible(true);
@@ -460,10 +454,6 @@ public class Main
 				}
 			}
 		});
-		// git diff would have been really helpful right about now, yay for smashing
-		// together 3 different ways I've written this!
-		// edit 5/24/16: This looks like it's all seamless now, no more smashy wonky
-		// bashy things.
 		viewFreeform.addActionListener(new ActionListener()
 		{
 			@Override
@@ -481,10 +471,6 @@ public class Main
 				add.add(addEditor);
 				add.add(addBackground);
 
-				/*
-				 * BECAUSE I HATE OPENING UP A BUNCH OF NOTEPAD.EXE WINDOWS OVER AND OVER TRYING
-				 * TO FIND THE RIGHT ONE.
-				 */
 				String[] al =
 				{ "Are you sure you want to enter Freeform mode?",
 						"Once you enter Freeform mode, you cannot re-enter single-editor mode." };
@@ -504,7 +490,7 @@ public class Main
 						@Override
 						public void actionPerformed(ActionEvent e)
 						{
-							OverlayBar newWin = new OverlayBar(false);
+							ContainerFrame newWin = new ContainerFrame(false);
 							newWin.show();
 							newWin.setSize(0, 0);
 							free.addPane(newWin.getPort(), newWin.getFile(),
@@ -521,7 +507,6 @@ public class Main
 						{
 							try
 							{
-
 								JFileChooser chooser = new JFileChooser();
 								int returnVal = chooser.showOpenDialog(null);
 								if (returnVal == JFileChooser.APPROVE_OPTION)
@@ -676,9 +661,9 @@ public class Main
 		this.port = port;
 	}
 
-	public OverlayBar getInstance()
+	public ContainerFrame getInstance()
 	{
-		return (OverlayBar) this;
+		return (ContainerFrame) this;
 	}
 
 	public JFrame getJframe()
@@ -728,7 +713,7 @@ public class Main
 
 	public void setCurrentFile(File currentFile)
 	{
-		OverlayBar.currentFile = currentFile;
+		ContainerFrame.currentFile = currentFile;
 	}
 
 	public void killFrame()
