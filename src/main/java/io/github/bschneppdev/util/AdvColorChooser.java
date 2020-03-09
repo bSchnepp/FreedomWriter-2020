@@ -5,10 +5,10 @@ import java.awt.Color;
 import javax.swing.JColorChooser;
 
 @SuppressWarnings("serial")
-public class CurtainColorChooser extends JColorChooser
+public class AdvColorChooser extends JColorChooser
 {
 
-	public CurtainColorChooser()
+	public AdvColorChooser()
 	{
 		super(Color.BLACK);
 	}

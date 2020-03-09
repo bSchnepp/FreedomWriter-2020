@@ -41,9 +41,11 @@ import io.github.bschneppdev.FreedomWriter.MenuItems.MainBar;
 import io.github.bschneppdev.FreedomWriter.Mode.Modes;
 import io.github.bschneppdev.FreedomWriter.window.FreedomDesktop;
 import io.github.bschneppdev.FreedomWriter.window.FreedomEditor;
-import io.github.bschneppdev.FreedomWriter.window.ScreenSizeHandler;
 import io.github.bschneppdev.util.DisplayMessage;
+import io.github.bschneppdev.util.ScreenSizeHandler;
 
+
+/* This is a (far) too massive god class that needs to be refactored badly. */
 public class Main
 {
 

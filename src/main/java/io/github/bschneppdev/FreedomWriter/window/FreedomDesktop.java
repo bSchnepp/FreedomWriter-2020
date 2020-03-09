@@ -14,6 +14,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import io.github.bschneppdev.util.ScreenSizeHandler;
+
 /*
  * TODO:
  * 	Implement Aero-like snap feature

@@ -24,6 +24,7 @@ import javax.swing.undo.UndoManager;
 import javax.swing.undo.UndoableEdit;
 
 import io.github.bschneppdev.FreedomWriter.MenuItems.FreedomLabel;
+import io.github.bschneppdev.util.ScreenSizeHandler;
 
 @SuppressWarnings("serial")
 public class FreedomEditor extends JPanel implements Printable, ActionListener
