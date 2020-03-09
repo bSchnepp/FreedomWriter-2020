@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.kernel;
+package io.github.bschneppdev.FreedomWriter.kernel;
 
 import java.awt.Graphics;
 import java.awt.Graphics2D;

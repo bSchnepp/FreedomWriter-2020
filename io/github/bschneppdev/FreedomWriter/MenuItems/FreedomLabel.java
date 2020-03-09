@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.MenuItems;
+package io.github.bschneppdev.FreedomWriter.MenuItems;
 
 import java.awt.Color;
 

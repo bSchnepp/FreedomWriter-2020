@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.window;
+package io.github.bschneppdev.FreedomWriter.window;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -23,7 +23,7 @@ import javax.swing.event.DocumentListener;
 import javax.swing.undo.UndoManager;
 import javax.swing.undo.UndoableEdit;
 
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.MenuItems.FreedomLabel;
+import io.github.bschneppdev.FreedomWriter.MenuItems.FreedomLabel;
 
 @SuppressWarnings("serial")
 public class FreedomEditor extends JPanel implements Printable, ActionListener

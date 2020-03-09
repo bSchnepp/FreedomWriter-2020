@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.window;
+package io.github.bschneppdev.FreedomWriter.window;
 
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;

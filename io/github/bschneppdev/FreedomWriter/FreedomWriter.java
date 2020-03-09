@@ -1,6 +1,6 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter;
+package io.github.bschneppdev.FreedomWriter;
 
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.kernel.Kernel;
+import io.github.bschneppdev.FreedomWriter.kernel.Kernel;
 
 public class FreedomWriter
 {

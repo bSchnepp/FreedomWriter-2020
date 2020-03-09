@@ -1,4 +1,6 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.kernel;
+package io.github.bschneppdev.FreedomWriter.kernel;
+
+
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -36,14 +38,15 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import edu.rsd.students.Brian.Schnepp.CurtainLib.DisplayMessage;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.MenuItems.FreedomLabel;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.MenuItems.MainBar;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.MenuItems.PigLatin;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.Mode.Modes;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.window.FreedomDesktop;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.window.FreedomEditor;
-import edu.rsd.students.Brian.Schnepp.FreedomWriter.window.ScreenSizeHandler;
+import io.github.bschneppdev.CurtainLib.DisplayMessage;
+import io.github.bschneppdev.FreedomWriter.MenuItems.FreedomLabel;
+import io.github.bschneppdev.FreedomWriter.MenuItems.MainBar;
+import io.github.bschneppdev.FreedomWriter.MenuItems.PigLatin;
+import io.github.bschneppdev.FreedomWriter.Mode.Modes;
+import io.github.bschneppdev.FreedomWriter.window.FreedomDesktop;
+import io.github.bschneppdev.FreedomWriter.window.FreedomEditor;
+import io.github.bschneppdev.FreedomWriter.window.ScreenSizeHandler;
+
 
 public class Main
 {

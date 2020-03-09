@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.CurtainLib;
+package io.github.bschneppdev.CurtainLib;
 
 import java.awt.Color;
 

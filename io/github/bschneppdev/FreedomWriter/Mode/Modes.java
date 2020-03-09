@@ -1,4 +1,4 @@
-package edu.rsd.students.Brian.Schnepp.FreedomWriter.Mode;
+package io.github.bschneppdev.FreedomWriter.Mode;
 
 public enum Modes
 {
