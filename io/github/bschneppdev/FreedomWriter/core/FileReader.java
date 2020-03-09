@@ -1,20 +1,28 @@
 package io.github.bschneppdev.FreedomWriter.core;
 
+import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class FileReader
 {
-	public String read(File file) throws FileNotFoundException
+	public String read(File file) throws IOException
 	{
-		Scanner scanner = new Scanner(file);
-		String str = "";
-		while (scanner.hasNextLine())
+		StringBuilder Builder = new StringBuilder();
+		FileInputStream InStream = new FileInputStream(file);
+		BufferedReader Reader = new BufferedReader(new InputStreamReader(InStream));
+		
+		String CurLine = "";
+		while ((CurLine = Reader.readLine()) != null)
 		{
-			str += scanner.nextLine() + '\n';
+			Builder.append(CurLine);
+			Builder.append("\n");
 		}
-		scanner.close();
-		return str;
+		
+		InStream.close();
+		Reader.close();
+		return Builder.toString();
 	}
 }
