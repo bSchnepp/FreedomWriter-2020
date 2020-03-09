@@ -7,18 +7,17 @@ import java.net.URISyntaxException;
 
 public class Browser
 {
-    public void use(String url)
-    {
-	if (Desktop.isDesktopSupported())
+	public void use(String url)
 	{
-	    try
-	    {
-		Desktop.getDesktop().browse(new URI(url));
-	    }
-	    catch (IOException | URISyntaxException e)
-	    {
-		e.printStackTrace();
-	    }
+		if (Desktop.isDesktopSupported())
+		{
+			try
+			{
+				Desktop.getDesktop().browse(new URI(url));
+			} catch (IOException | URISyntaxException e)
+			{
+				e.printStackTrace();
+			}
+		}
 	}
-    }
 }

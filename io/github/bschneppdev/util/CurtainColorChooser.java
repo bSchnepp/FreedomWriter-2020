@@ -1,4 +1,4 @@
-package io.github.bschneppdev.CurtainLib;
+package io.github.bschneppdev.util;
 
 import java.awt.Color;
 
@@ -8,8 +8,8 @@ import javax.swing.JColorChooser;
 public class CurtainColorChooser extends JColorChooser
 {
 
-    public CurtainColorChooser()
-    {
-	super(Color.BLACK);
-    }
+	public CurtainColorChooser()
+	{
+		super(Color.BLACK);
+	}
 }

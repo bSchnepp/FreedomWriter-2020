@@ -7,18 +7,18 @@ import javax.swing.JMenuItem;
 @SuppressWarnings("serial")
 public class MainBar extends JMenuBar
 {
-    private JMenuBar bar = new JMenuBar();
-    public MainBar(JMenu file, JMenu home, JMenu insert, JMenu translate, JMenuItem help)
-    {
-	bar.add(file);
-	bar.add(home);
-	bar.add(insert);
-	bar.add(translate);
-	bar.add(help);
-    }
-    
-    public JMenuBar getBar()
-    {
-	return bar;
-    }
+	private JMenuBar bar = new JMenuBar();
+
+	public MainBar(JMenu file, JMenu home, JMenu insert, JMenuItem help)
+	{
+		bar.add(file);
+		bar.add(home);
+		bar.add(insert);
+		bar.add(help);
+	}
+
+	public JMenuBar getBar()
+	{
+		return bar;
+	}
 }
