@@ -41,7 +41,6 @@ import io.github.bschneppdev.FreedomWriter.MenuItems.MainBar;
 import io.github.bschneppdev.FreedomWriter.Mode.Modes;
 import io.github.bschneppdev.FreedomWriter.window.FreedomDesktop;
 import io.github.bschneppdev.FreedomWriter.window.FreedomEditor;
-import io.github.bschneppdev.util.DisplayMessage;
 import io.github.bschneppdev.util.ScreenSizeHandler;
 
 /* This is a (far) too massive god class that needs to be refactored badly. */
@@ -121,45 +120,38 @@ public class Main
 			public void actionPerformed(ActionEvent e)
 			{
 				careOnTabChange = false;
-				String[] al =
-				{ "Would you like to save this file?",
-						"The contents of this tab will be saved to a file." };
-				if (DisplayMessage.displayMessage(al) == 0)
+				modes = Modes.SAVING;
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"FreedomWriter Compatible Documents", "txt", "bludok", "freedok");
+				chooser.setFileFilter(filter);
+				int returnVal = chooser.showSaveDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
-					modes = Modes.SAVING;
-					JFileChooser chooser = new JFileChooser();
-					FileNameExtensionFilter filter = new FileNameExtensionFilter(
-							"FreedomWriter Compatible Documents", "txt", "bludok",
-							"freedok");
-					chooser.setFileFilter(filter);
-					int returnVal = chooser.showSaveDialog(null);
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						System.out.println("You chose to save this file: \""
-								+ chooser.getSelectedFile().getName()
-								+ "\" at this path: "
-								+ chooser.getSelectedFile().getPath());
-					} else
-					{
-						return;
-					}
-
-					setCurrentFile(chooser.getSelectedFile());
-					try
-					{
-						save(currentFile, getText());
-					} catch (IOException exception)
-					{
-						exception.printStackTrace();
-					}
-					String name = chooser.getSelectedFile().getName();
-					int current = tabs.getSelectedIndex();
-
-					tabs.setTitleAt(current, name);
-
-					updateNoteBar();
-					careOnTabChange = true;
+					System.out.println("You chose to save this file: \""
+							+ chooser.getSelectedFile().getName() + "\" at this path: "
+							+ chooser.getSelectedFile().getPath());
+				} else
+				{
+					return;
 				}
+
+				setCurrentFile(chooser.getSelectedFile());
+				try
+				{
+					save(currentFile, getText());
+				} catch (IOException exception)
+				{
+					exception.printStackTrace();
+				}
+				String name = chooser.getSelectedFile().getName();
+				int current = tabs.getSelectedIndex();
+
+				tabs.setTitleAt(current, name);
+
+				updateNoteBar();
+				careOnTabChange = true;
+
 			}
 		});
 
@@ -169,52 +161,47 @@ public class Main
 			public void actionPerformed(ActionEvent e)
 			{
 				careOnTabChange = false;
-				String[] al =
-				{ "Would you like to open a file?" };
-				if (DisplayMessage.displayMessage(al) == 0)
+				tabs.addTab("New file", new FreedomEditor().display());
+				tabs.setSelectedIndex(tabs.getTabCount() - 1);
+				currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
+				modes = Modes.OPENING;
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("FreedomWriter Documents",
+						"txt", "bludok", "freedok");
+				chooser.setFileFilter(filter);
+
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
-					tabs.addTab("New file", new FreedomEditor().display());
-					tabs.setSelectedIndex(tabs.getTabCount() - 1);
-					currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
-					modes = Modes.OPENING;
-					JFileChooser chooser = new JFileChooser();
-					FileNameExtensionFilter filter = new FileNameExtensionFilter(
-							"FreedomWriter Documents", "txt", "bludok", "freedok");
-					chooser.setFileFilter(filter);
-
-					int returnVal = chooser.showOpenDialog(null);
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						System.out.println("You chose to open this file: \""
-								+ chooser.getSelectedFile().getName()
-								+ "\" at this path: "
-								+ chooser.getSelectedFile().getPath());
-					} else
-					{
-						return;
-					}
-
-					setCurrentFile(chooser.getSelectedFile());
-					try
-					{
-						Scanner scanner = new Scanner(currentFile);
-						while (scanner.hasNextLine())
-						{
-							setText(getText() + scanner.nextLine() + '\n');
-						}
-						scanner.close();
-					} catch (FileNotFoundException exception)
-					{
-						exception.printStackTrace();
-					}
-					String name = chooser.getSelectedFile().getName();
-					int current = tabs.getSelectedIndex();
-
-					tabs.setTitleAt(current, name);
-
-					updateNoteBar();
-					careOnTabChange = true;
+					System.out.println("You chose to open this file: \""
+							+ chooser.getSelectedFile().getName() + "\" at this path: "
+							+ chooser.getSelectedFile().getPath());
+				} else
+				{
+					return;
 				}
+
+				setCurrentFile(chooser.getSelectedFile());
+				try
+				{
+					Scanner scanner = new Scanner(currentFile);
+					while (scanner.hasNextLine())
+					{
+						setText(getText() + scanner.nextLine() + '\n');
+					}
+					scanner.close();
+				} catch (FileNotFoundException exception)
+				{
+					exception.printStackTrace();
+				}
+				String name = chooser.getSelectedFile().getName();
+				int current = tabs.getSelectedIndex();
+
+				tabs.setTitleAt(current, name);
+
+				updateNoteBar();
+				careOnTabChange = true;
+
 			}
 		});
 
@@ -241,59 +228,43 @@ public class Main
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				String[] al =
-				{ "Would you like to concatenate this text file with another one?" };
-				if (DisplayMessage.displayMessage(al) == 0)
+				currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
+				modes = Modes.OPENING;
+				JFileChooser chooser = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter("FreedomWriter Documents",
+						"txt", "bludok", "freedok");
+				chooser.setFileFilter(filter);
+
+				int returnVal = chooser.showOpenDialog(null);
+				if (returnVal == JFileChooser.APPROVE_OPTION)
 				{
-					currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
-					modes = Modes.OPENING;
-					JFileChooser chooser = new JFileChooser();
-					FileNameExtensionFilter filter = new FileNameExtensionFilter(
-							"FreedomWriter Documents", "txt", "bludok", "freedok");
-					chooser.setFileFilter(filter);
-
-					int returnVal = chooser.showOpenDialog(null);
-					if (returnVal == JFileChooser.APPROVE_OPTION)
-					{
-						// eclipse why
-						System.out.println("You chose to concatenate this file: \""
-								+ chooser.getSelectedFile().getName()
-								+ "\" at this path: "
-								+ chooser.getSelectedFile().getPath());
-					} else
-					{
-						return;
-					}
-					File newFile = chooser.getSelectedFile();
-					String newAddedText = "";
-					try
-					{
-						Scanner scanner = new Scanner(newFile);
-						while (scanner.hasNextLine())
-						{
-							newAddedText += scanner.nextLine() + '\n';
-						}
-						scanner.close();
-					} catch (FileNotFoundException exception)
-					{
-						exception.printStackTrace();
-					}
-
-					setText(getText() + '\n' + newAddedText);
-					updateNoteBar();
+					// eclipse why
+					System.out.println("You chose to concatenate this file: \""
+							+ chooser.getSelectedFile().getName() + "\" at this path: "
+							+ chooser.getSelectedFile().getPath());
+				} else
+				{
+					return;
 				}
+				File newFile = chooser.getSelectedFile();
+				String newAddedText = "";
+				try
+				{
+					Scanner scanner = new Scanner(newFile);
+					while (scanner.hasNextLine())
+					{
+						newAddedText += scanner.nextLine() + '\n';
+					}
+					scanner.close();
+				} catch (FileNotFoundException exception)
+				{
+					exception.printStackTrace();
+				}
+
+				setText(getText() + '\n' + newAddedText);
+				updateNoteBar();
 			}
 
-		});
-
-		shutUp.addActionListener(new ActionListener()
-		{
-			@Override
-			public void actionPerformed(ActionEvent e)
-			{
-				boolean isShutUp = DisplayMessage.isShutUp();
-				DisplayMessage.setShutUp(!isShutUp);
-			}
 		});
 
 		viewAsHTML.addActionListener(new ActionListener()
@@ -301,38 +272,33 @@ public class Main
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				String[] al =
-				{ "Would you like to view this document as HTML in your browser?" };
-				if (DisplayMessage.displayMessage(al) == 0)
+				modes = Modes.SAVING;
+				currentFile = new File("htmlview.html");
+				if (!currentFile.exists())
 				{
-					modes = Modes.SAVING;
-					currentFile = new File("htmlview.html");
-					if (!currentFile.exists())
-					{
-						try
-						{
-							currentFile.createNewFile();
-						} catch (IOException exception)
-						{
-							exception.printStackTrace();
-						}
-					}
 					try
 					{
-						save(currentFile, getText());
-					} catch (IOException exception1)
-					{
-						exception1.printStackTrace();
-					}
-					updateNoteBar();
-					Desktop dtop = Desktop.getDesktop();
-					try
-					{
-						dtop.open(currentFile);
+						currentFile.createNewFile();
 					} catch (IOException exception)
 					{
 						exception.printStackTrace();
 					}
+				}
+				try
+				{
+					save(currentFile, getText());
+				} catch (IOException exception1)
+				{
+					exception1.printStackTrace();
+				}
+				updateNoteBar();
+				Desktop dtop = Desktop.getDesktop();
+				try
+				{
+					dtop.open(currentFile);
+				} catch (IOException exception)
+				{
+					exception.printStackTrace();
 				}
 			}
 		});
@@ -392,17 +358,12 @@ public class Main
 			public void actionPerformed(ActionEvent e)
 			{
 				careOnTabChange = false;
-				String[] al =
-				{ "Do you really want to open a new file?" };
-				if (DisplayMessage.displayMessage(al) == 0)
-				{
-					modes = Modes.OPENING;
-					updateNoteBar();
-					currentFile = null;
-					tabs.addTab("New file", new FreedomEditor().display());
-					tabs.setSelectedIndex(tabs.getTabCount() - 1);
-					currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
-				}
+				modes = Modes.OPENING;
+				updateNoteBar();
+				currentFile = null;
+				tabs.addTab("New file", new FreedomEditor().display());
+				tabs.setSelectedIndex(tabs.getTabCount() - 1);
+				currentFile = ((FreedomEditor) tabs.getSelectedComponent()).getCurrentFile();
 				careOnTabChange = true;
 			}
 		});
@@ -471,88 +432,81 @@ public class Main
 				add.add(addEditor);
 				add.add(addBackground);
 
-				String[] al =
-				{ "Are you sure you want to enter Freeform mode?",
-						"Once you enter Freeform mode, you cannot re-enter single-editor mode." };
-				if (DisplayMessage.displayMessage(al) == 0)
+				jframe.dispose();
+				JFrame newForm = new JFrame("Freeform Desktop - Created by Brian Schnepp");
+				newForm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+				final FreedomDesktop free = new FreedomDesktop();
+				newForm.getContentPane().add(desktopBar, BorderLayout.SOUTH);
+				newForm.getContentPane().add(free, BorderLayout.CENTER);
+				free.addPane(getPort(), file, home, insert, viewAsHTML);
+				newForm.setVisible(true);
+				newForm.setSize(sizes[0], sizes[1] - 45);
+				addEditor.addActionListener(new ActionListener()
 				{
-					jframe.dispose();
-					JFrame newForm = new JFrame("Freeform Desktop - Created by Brian Schnepp");
-					newForm.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-					final FreedomDesktop free = new FreedomDesktop();
-					newForm.getContentPane().add(desktopBar, BorderLayout.SOUTH);
-					newForm.getContentPane().add(free, BorderLayout.CENTER);
-					free.addPane(getPort(), file, home, insert, viewAsHTML);
-					newForm.setVisible(true);
-					newForm.setSize(sizes[0], sizes[1] - 45);
-					addEditor.addActionListener(new ActionListener()
+					@Override
+					public void actionPerformed(ActionEvent e)
 					{
-						@Override
-						public void actionPerformed(ActionEvent e)
-						{
-							ContainerFrame newWin = new ContainerFrame(false);
-							newWin.show();
-							newWin.setSize(0, 0);
-							free.addPane(newWin.getPort(), newWin.getFile(),
-									newWin.getHome(), newWin.getInsert(),
-									newWin.getViewAsHTML());
-							newWin.killFrame();
-						}
-					});
+						ContainerFrame newWin = new ContainerFrame(false);
+						newWin.show();
+						newWin.setSize(0, 0);
+						free.addPane(newWin.getPort(), newWin.getFile(), newWin.getHome(),
+								newWin.getInsert(), newWin.getViewAsHTML());
+						newWin.killFrame();
+					}
+				});
 
-					addBackground.addActionListener(new ActionListener()
+				addBackground.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent arg0)
 					{
-						@Override
-						public void actionPerformed(ActionEvent arg0)
+						try
 						{
-							try
+							JFileChooser chooser = new JFileChooser();
+							int returnVal = chooser.showOpenDialog(null);
+							if (returnVal == JFileChooser.APPROVE_OPTION)
 							{
-								JFileChooser chooser = new JFileChooser();
-								int returnVal = chooser.showOpenDialog(null);
-								if (returnVal == JFileChooser.APPROVE_OPTION)
-								{
-									File pathToFile = chooser.getSelectedFile();
-									Image image = ImageIO.read(pathToFile);
-									Graphics g = free.getGraphics();
-									free.setImg(image);
-									free.paintComponent(g);
-								}
-
-							} catch (IOException ex)
-							{
-								ex.printStackTrace();
+								File pathToFile = chooser.getSelectedFile();
+								Image image = ImageIO.read(pathToFile);
+								Graphics g = free.getGraphics();
+								free.setImg(image);
+								free.paintComponent(g);
 							}
-						}
-					});
 
-					newForm.addComponentListener(new ComponentListener()
+						} catch (IOException ex)
+						{
+							ex.printStackTrace();
+						}
+					}
+				});
+
+				newForm.addComponentListener(new ComponentListener()
+				{
+					@Override
+					public void componentHidden(ComponentEvent e)
 					{
-						@Override
-						public void componentHidden(ComponentEvent e)
-						{
-							;
-						}
+						;
+					}
 
-						@Override
-						public void componentMoved(ComponentEvent e)
-						{
-							jframe.repaint();
-						}
+					@Override
+					public void componentMoved(ComponentEvent e)
+					{
+						jframe.repaint();
+					}
 
-						@Override
-						public void componentResized(ComponentEvent e)
-						{
-							jframe.repaint();
-						}
+					@Override
+					public void componentResized(ComponentEvent e)
+					{
+						jframe.repaint();
+					}
 
-						@Override
-						public void componentShown(ComponentEvent e)
-						{
-							;
-						}
-					});
+					@Override
+					public void componentShown(ComponentEvent e)
+					{
+						;
+					}
+				});
 
-				}
 			}
 		});
 
@@ -588,16 +542,10 @@ public class Main
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				String[] al =
-				{ "Are you sure you wish to trash this tab?", "All unsaved progress will be lost." };
-				if (DisplayMessage.displayMessage(al) == 0)
-				{
-					modes = Modes.CLOSING;
-					updateNoteBar();
-					int tabOpen = tabs.getSelectedIndex();
-					tabs.remove(tabOpen);
-				}
-
+				modes = Modes.CLOSING;
+				updateNoteBar();
+				int tabOpen = tabs.getSelectedIndex();
+				tabs.remove(tabOpen);
 			}
 		});
 
